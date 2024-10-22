@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from input_manager.manager import Manager
 from pathlib import Path
 

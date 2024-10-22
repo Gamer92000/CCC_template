@@ -1,0 +1,7 @@
+[project]
+name = "cccio"
+version = "0.1.0"
+description = "Simple IO manager for ccc"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []

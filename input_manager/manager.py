@@ -1,11 +1,38 @@
 from pathlib import Path
 import os
 from types import FunctionType
+import sys
 
 class Manager:
+    """
+    Create a new I/O Manager instance to automatically manage input and output files.
+    
+    Parameters
+    ----------
+    func : function
+
+    Returns
+    -------
+    Manager
+
+    Examples
+    -------
+    ```
+    m = Manager()
+    m.load_folder(path=Path("level1"))
+    m.apply_to_all(func=process_input)
+    ```
+    """
+
     def __init__(self):
+        if int(sys.version.split('.')[1]) < 13:
+            print("🚧: You should consider using a more recent python version for features and performance.")
+            print("    Further version 3.13 and above support GIL-free multithreading, you may want to give it a try.")
+        elif not sys._is_gil_enabled():
+            print("🚧: Using python without GIL is experimental!")
+            print("    Proceed with caution. For single threaded applications consider using a python version with GIL enabled.")
+            print("    Use e.g. \033[3muv venv --python 3.13rc3\033[0m to switch to the normal version and \033[3m3.13t\033[0m for the free-threaded one.")
         self.data = {}
-        pass
     
     def load_file(self, in_file: Path, out_file: Path):
         if not in_file.exists() or not in_file.is_file():
@@ -26,6 +53,9 @@ class Manager:
         output_path = path.parent / f"out_{path.name}"
         os.makedirs(output_path, exist_ok=True)
         for file in files:
+            if file == ".gitkeep":
+                print("🚧: Skipping .gitkeep file. You may load this file manually if you want to process this file using load_file().")
+                continue
             self.load_file(path / file, output_path / file)
 
     def load_input(self):
