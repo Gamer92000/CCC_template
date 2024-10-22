@@ -23,5 +23,5 @@ m.load_folder(path=Path("level1"))
 m.apply_to_all(func=process_input)
 ```
 
-> [!INFO]  
+> [!TIP]  
 > I recommend using [`uv`](https://github.com/astral-sh/uv) to manage your python installations and [`ruff`](https://github.com/astral-sh/ruff) as linter.
